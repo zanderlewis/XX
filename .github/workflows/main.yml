@@ -32,5 +32,5 @@ jobs:
     - name: Upload executable
       uses: actions/upload-artifact@v2
       with:
-        name: xx.exe
-        path: dist/main
+        name: xx
+        path: dist/main.exe
