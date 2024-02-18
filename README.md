@@ -14,4 +14,4 @@ Zander Lewis (TheMidnightWolf or WolfTheDev) started this project with some help
 
 ## How to run XX
 
-For now, you run the program as 'python main.py <xxfilename>.xx'. For example, you would run 'python main.py example.xx' to run your program.
+For now, you run the program as 'python main.py xxfilename.xx'. For example, you would run 'python main.py example.xx' to run your program.
