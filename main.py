@@ -100,20 +100,27 @@ class Interpreter:
 
 
     def parse_line(self, line):
-        if not line or line.startswith('//'):
-            return
-        if line.startswith('print(') and line.endswith(')'):
-            self.handle_print(line[6:-1])
-        elif '=' in line:
-            self.handle_assignment(line)
-        elif line.startswith('def '):
-            self.handle_function_definition(line[4:])
-        elif line.endswith('()'):
-            self.handle_function_call(line[:-2])
-        elif line.startswith('import '):
-            self.handle_import(line[7:])
-        else:
-            print(f"Syntax error in line: '{line}'")
+    if not line or line.startswith('//'):
+        # It's a comment or a blank line; ignore it.
+        return
+    if line.startswith('print(') and line.endswith(')'):
+        # It's a print statement; handle it accordingly.
+        self.handle_print(line[6:-1])
+    elif '=' in line:
+        # It's a variable assignment; handle it accordingly.
+        self.handle_assignment(line)
+    elif line.startswith('def '):
+        # It's a function definition; handle it accordingly.
+        self.handle_function_definition(line[4:])
+    elif line.endswith('()'):
+        # It's a function call; handle it accordingly.
+        self.handle_function_call(line[:-2])
+    elif line.startswith('import '):
+        # It's an import statement; handle it accordingly.
+        self.handle_import(line[7:])
+    else:
+        # None of the patterns matched; it's a syntax error.
+        print(f"Syntax error in line: '{line}'")
 
     def evaluate_expression(self, expression):
         # This is a simple recursive parser for mathematical expressions
