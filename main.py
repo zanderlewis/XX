@@ -103,7 +103,7 @@ class Interpreter:
         if not line or line.startswith('//'):
             # It's a comment or a blank line; ignore it.
             return
-        if line.startswith('set '):
+        if line.startswith('var '):
             # Handle variable assignment
             var_name, var_value = line[4:].split('=')
             self.variables[var_name.strip()] = self.evaluate_expression(var_value.strip())
