@@ -101,18 +101,33 @@ class Interpreter:
 
     def parse_line(self, line):
         if not line or line.startswith('//'):
+            # It's a comment or a blank line; ignore it.
             return
-        if line.startswith('print(') and line.endswith(')'):
+        if line.startswith('var '):
+            # Handle variable assignment
+            var_name, var_value = line[4:].split('=')
+            self.variables[var_name.strip()] = self.evaluate_expression(var_value.strip())
+        elif line.startswith('print(') and line.endswith(')'):
+            # Handle print statement with parentheses
             self.handle_print(line[6:-1])
+        elif line.startswith('print '):
+            # Handle print statement without parentheses
+            value_to_print = line[6:].strip()
+            print(self.evaluate_expression(value_to_print))
         elif '=' in line:
+            # Handle variable assignment
             self.handle_assignment(line)
         elif line.startswith('def '):
+            # Handle function definition
             self.handle_function_definition(line[4:])
         elif line.endswith('()'):
+            # Handle function call
             self.handle_function_call(line[:-2])
         elif line.startswith('import '):
+            # Handle import statement
             self.handle_import(line[7:])
         else:
+            # None of the patterns matched; it's a syntax error.
             print(f"Syntax error in line: '{line}'")
 
     def evaluate_expression(self, expression):
