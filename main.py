@@ -19,7 +19,7 @@ class Interpreter:
     def run(self, lines):
         in_python_block = False
         python_code = ""
-        python_blocks = []
+        code_to_execute = []
 
         for line in lines:
             stripped_line = line.strip()
@@ -30,53 +30,56 @@ class Interpreter:
                 continue  # Skip the line with the start tag
 
             # Check for the end of a Python block
-            elif stripped_line == "[endplang]" and in_python_block:
+            if stripped_line == "[endplang]" and in_python_block:
                 in_python_block = False
-                python_blocks.append(python_code.strip())
+                code_to_execute.append(('plang', python_code.strip()))  # Queue Python block for execution
                 python_code = ""  # Reset the Python code block
-                continue  # Skip the line with the end tag
+                continue
 
-            # If we're in a Python block, collect the lines
             if in_python_block:
-                python_code += line + '\n'
-            # If we're not in a Python block, process the line as `.xx` code
+                python_code += line + '\n'  # Collect the Python block lines
             else:
-                self.parse_line(stripped_line)
+                # Handle function definitions within the .xx script
+                if self.in_function_definition:
+                    if stripped_line == 'endf':
+                        self.functions[self.current_function_name] = self.current_function_body
+                        self.in_function_definition = False
+                        self.current_function_name = ""
+                        self.current_function_body = []
+                    else:
+                        self.current_function_body.append(stripped_line)
+                else:
+                    # Queue .xx line for execution
+                    code_to_execute.append(('xx', stripped_line))
 
-        # After processing all lines, execute collected Python blocks
-        for python_code in python_blocks:
-            self.execute_python_code(python_code)
+        # Execute collected code blocks
+        for code_type, code in code_to_execute:
+            if code_type == 'plang':
+                self.execute_python_code(code)
+            elif code_type == 'xx':
+                self.parse_line(code)
+
 
     def execute_python_code(self, python_code):
-        # Create a scope for Python code execution
-        # This starts with the current interpreter variables
-        execution_scope = {**self.variables}
-
-        # Prepare the built-ins for the global scope
-        # '__builtins__' provides access to all of Python's built-in functions
-        # We also include a custom 'print' that can be linked to the .xx print functionality
+        local_scope = {**self.variables}
         global_scope = {"__builtins__": __builtins__, "print": self.custom_print}
 
         try:
-            # Execute the Python code within the environment
-            # We provide both the global and local scope as the same dictionary
-            # so that variables modified in the global scope by the Python code
-            # are available after the code is executed
-            exec(python_code, global_scope, execution_scope)
+            exec(python_code, global_scope, local_scope)
 
-            # After executing the Python code, we update the interpreter's variables
-            # with any changes made by the Python code, so they are reflected in the .xx environment
-            self.variables.update(execution_scope)
+            # Update the interpreter's variables with any changes made by the Python code
+            self.variables.update(local_scope)
 
-            # If any Python functions have been defined and need to be called from .xx,
-            # they are stored in the interpreter's functions dictionary
-            for key, value in execution_scope.items():
-                if callable(value):
-                    self.functions[key] = value
+            # Now, store any functions defined in the Python block
+            for var in local_scope:
+                if callable(local_scope[var]):
+                    self.functions[var] = local_scope[var]
+
         except Exception as e:
-            # If there's an error during the execution of the Python code,
-            # we print the error message
             print(f"Error executing embedded Python code: {e}")
+
+
+
 
     def custom_print(self, *args, **kwargs):
         # This is a custom print function that can be used to link the print
@@ -113,16 +116,30 @@ class Interpreter:
         elif line.startswith('print '):
             # Handle print statement without parentheses
             value_to_print = line[6:].strip()
-            print(self.evaluate_expression(value_to_print))
+            if value_to_print in self.functions:
+                # If it's a function, call it and print the return value
+                print(self.functions[value_to_print]())
+            else:
+                # Otherwise, evaluate the expression and print
+                print(self.evaluate_expression(value_to_print))
         elif '=' in line:
             # Handle variable assignment
             self.handle_assignment(line)
         elif line.startswith('def '):
             # Handle function definition
             self.handle_function_definition(line[4:])
+        elif line.startswith('endf'):
+            # End of function definition
+            return
         elif line.endswith('()'):
             # Handle function call
-            self.handle_function_call(line[:-2])
+            func_name = line[:-2].strip()
+            if func_name in self.functions:
+                # If it's a Python function defined in plang, call it
+                self.functions[func_name]()
+            else:
+                # If it's a .xx function, handle the call
+                self.handle_function_call(func_name)
         elif line.startswith('import '):
             # Handle import statement
             self.handle_import(line[7:])
@@ -175,28 +192,44 @@ class Interpreter:
         self.variables[var_name] = value
 
     def handle_function_definition(self, line):
-        func_name = line.strip()
+        # Start of function definition
+        func_name, _, remainder = line.partition(' ')  # Assuming 'def func_name' syntax
+        self.current_function_name = func_name.strip()
         self.in_function_definition = True
-        self.current_function_name = func_name
+        if remainder:
+            # If there's more to the line, add it to the function body
+            self.current_function_body.append(remainder.strip())
 
     def handle_function_call(self, function_name):
+        # Call a defined function
         if function_name in self.functions:
+            # Retrieve the function body
             function_body = self.functions[function_name]
-            self.run(function_body)
+            # Execute each line of the function body
+            for func_line in function_body:
+                self.parse_line(func_line)
         else:
             print(f"Undefined function: {function_name}")
 
     def handle_import(self, library_name):
         if library_name in self.imported_libraries:
+            # Library already imported; nothing to do
             return
         try:
-            with open(f'{library_name}.xxl', 'r') as file:
+            # Attempt to open the library file
+            with open(f'{library_name}', 'r') as file:
                 library_code = file.readlines()
-                self.run(library_code)
-                self.imported_libraries[library_name] = True
+
+            # Run the library code as if it were part of the main program
+            # This should populate self.functions with any functions defined in the library
+            self.run(library_code)
+
+            # Mark this library as imported
+            self.imported_libraries[library_name] = True
         except FileNotFoundError:
-            print(f"Library not found: {library_name}.xxl")
+            print(f"Library not found: {library_name}")
             sys.exit(1)
+
 
 # Example usage
 if __name__ == '__main__':
