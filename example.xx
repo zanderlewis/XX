@@ -1,0 +1,11 @@
+x = 10
+
+[plang python]
+import random
+
+x = random.randint(0,9999)
+y = int(x * x / x)
+[endplang]
+
+print(x)
+print(y)
