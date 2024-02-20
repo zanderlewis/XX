@@ -10,7 +10,7 @@ In order to contribute, you need to be familiar with python. Additions to XX nee
 
 ## XX Founder
 
-Zander Lewis (TheMidnightWolf or WolfTheDev) started this project with some help with ChatGPT on February 16, 2024. Zander started this project at age 15 and came up with the idea that XX can be a bridge between languages, doing what MakeFiles couldn't do (see [About XX](https://github.com/WolfTheDeveloper/XX#about-xx)).
+Zander Lewis (TheMidnightWolf or WolfTheDev) started this project with some help with ChatGPT on February 16, 2024. Zander started this project at age 15 and came up with the idea that XX can be a bridge between languages, doing what other languages couldn't do (see [About XX](https://github.com/WolfTheDeveloper/XX#about-xx)).
 
 ## How to run XX
 
