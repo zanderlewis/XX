@@ -1,7 +1,5 @@
 # XX (Double X or DubX)
 
-[![Supported Plang Languages]1](https://github.com/WolfTheDeveloper/XX)
-
 ## About XX
 
 XX is an open-source programming language built on python. XX's goal is to be a bridge between programming languages and allow programmers to code in multiple languages in one script.
