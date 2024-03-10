@@ -1,6 +1,7 @@
 # XX (Double X or DubX)
 
-<img alt="Static Badge" src="https://img.shields.io/badge/:badgeContent?link=https%3A%2F%2Fraw.githubusercontent.com%2FWolfTheDeveloper%2FXX%2Fmaster%2Flanguages.json">
+<img alt="Static Badge" src="https://img.shields.io/badge/:badgeContent?style=for-the-badge&link=https%3A%2F%2Fraw.githubusercontent.com%2FWolfTheDeveloper%2FXX%2Fmaster%2Flanguages.json">
+
 
 
 ## About XX
