@@ -1,9 +1,7 @@
 # XX (Double X or DubX)
 
 [![Package XX](https://github.com/WolfTheDeveloper/XX/actions/workflows/package-xx.yml/badge.svg?branch=master)](https://github.com/WolfTheDeveloper/XX/actions/workflows/package-xx.yml)
-<a href="https://github.com/WolfTheDeveloper/XX/graphs/contributors">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/WolfTheDeveloper/XX" />
-    </a>
+[![GitHub Contributors](https://img.shields.io/github/contributors/WolfTheDeveloper/XX)](https://github.com/WolfTheDeveloper/XX/graphs/contributors)
 
 ## Sub Repos
 [XX Examples](https://github.com/WolfTheDeveloper/XX-Examples)
