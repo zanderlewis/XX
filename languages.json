@@ -1,3 +1,6 @@
 {
-  "supported_languages": 1
+  "schemaVersion": 1,
+  "label": "Supported Languages",
+  "message": "1",
+  "color": "green"
 }
