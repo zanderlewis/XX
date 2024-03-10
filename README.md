@@ -1,5 +1,7 @@
 # XX (Double X or DubX)
 
+![Supported Languages](https://img.shields.io/endpoint?url=languages.json)
+
 ## About XX
 
 XX is an open-source programming language built on python. XX's goal is to be a bridge between programming languages and allow programmers to code in multiple languages in one script.
