@@ -1,5 +1,7 @@
 # XX (Double X or DubX)
 
+[![Package XX](https://github.com/WolfTheDeveloper/XX/actions/workflows/package-xx.yml/badge.svg?branch=master)](https://github.com/WolfTheDeveloper/XX/actions/workflows/package-xx.yml)
+
 ## Sub Repos
 [XX Examples](https://github.com/WolfTheDeveloper/XX-Examples)
 
