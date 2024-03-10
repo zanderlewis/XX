@@ -1,6 +1,7 @@
 # XX (Double X or DubX)
 
-![Supported Languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/WolfTheDeveloper/XX/master/languages.json)
+![Supported plang Languages](https://img.shields.io/badge/:badgeContent?link=https%3A%2F%2Fraw.githubusercontent.com%2FWolfTheDeveloper%2FXX%2Fmaster%2Flanguages.json)
+)
 
 ## About XX
 
