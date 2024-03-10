@@ -1,6 +1,7 @@
 # XX (Double X or DubX)
 
 ## Sub Repos
+[XX Examples](https://github.com/WolfTheDeveloper/XX-Examples)
 
 ## About XX
 
