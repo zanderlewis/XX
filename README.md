@@ -2,7 +2,7 @@
 
 [![Package XX](https://github.com/XX-Development/XX/actions/workflows/package-xx.yml/badge.svg?branch=master)](https://github.com/XX-Development/XX/actions/workflows/package-xx.yml)
 [![GitHub Contributors](https://img.shields.io/github/contributors/XX-Development/XX?label=Contributors)](https://github.com/XX-Development/XX/graphs/contributors)
-[![GitHub Stars](https://img.shields.io/github/stars/XX-Development/XX?label=Stars)]
+![GitHub Stars](https://img.shields.io/github/stars/XX-Development/XX?label=Stars)
 
 ## Sub Repos
 [XX Examples](https://github.com/WolfTheDeveloper/XX-Examples)
