@@ -1,8 +1,8 @@
 # XX (Double X or DubX)
 
-[![Package XX](https://github.com/XX-Development/XX/actions/workflows/package-xx.yml/badge.svg?branch=master)](https://github.com/WolfTheDeveloper/XX/actions/workflows/package-xx.yml)
-[![GitHub Contributors](https://img.shields.io/github/contributors/XX-Development/XX?label=Contributors)](https://github.com/WolfTheDeveloper/XX/graphs/contributors)
-[![GitHub Stars](https://img.shields.io/github/stars/XX-Development/XX?label=Stars)](https://github.com/WolfTheDeveloper/XX/graphs/contributors)
+[![Package XX](https://github.com/XX-Development/XX/actions/workflows/package-xx.yml/badge.svg?branch=master)](https://github.com/XX-Development/XX/actions/workflows/package-xx.yml)
+[![GitHub Contributors](https://img.shields.io/github/contributors/XX-Development/XX?label=Contributors)](https://github.com/XX-Development/XX/graphs/contributors)
+[![GitHub Stars](https://img.shields.io/github/stars/XX-Development/XX?label=Stars)](https://github.com/XX-Development/XX/graphs/stars)
 
 ## Sub Repos
 [XX Examples](https://github.com/WolfTheDeveloper/XX-Examples)
